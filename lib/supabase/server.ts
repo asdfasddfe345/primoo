@@ -1,9 +1,8 @@
 import { createServerClient, type CookieOptions } from '@supabase/ssr'
-import { cookies } from 'next/headers'
+import type { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies'
 import type { Database } from '@/types/database'
 
-export function createClient() {
-  const cookieStore = cookies()
+export function createClient(cookieStore: ReadonlyRequestCookies) {
 
   return createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,

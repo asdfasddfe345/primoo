@@ -1,14 +1,10 @@
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { SearchBar } from '@/components/search/search-bar'
-import { UserMenu } from '@/components/auth/user-menu'
-import { createClient } from '@/lib/supabase/server'
 import { BriefcaseIcon, CalendarDays, BookOpen, Users } from 'lucide-react'
+import { AuthStatus } from '@/components/auth/auth-status'
 
 export async function Navbar() {
-  const supabase = createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center">
@@ -38,18 +34,7 @@ export async function Navbar() {
             <SearchBar />
           </div>
           <div className="flex items-center space-x-2">
-            {user ? (
-              <UserMenu user={user} />
-            ) : (
-              <div className="flex items-center space-x-2">
-                <Button variant="ghost" asChild>
-                  <Link href="/auth/login">Login</Link>
-                </Button>
-                <Button asChild>
-                  <Link href="/auth/signup">Sign Up</Link>
-                </Button>
-              </div>
-            )}
+            <AuthStatus />
           </div>
         </div>
       </div>
