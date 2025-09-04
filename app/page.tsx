@@ -1,4 +1,6 @@
+import 'server-only'
 import Link from 'next/link'
+import { cookies } from 'next/headers'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -8,7 +10,7 @@ import { formatSalary, timeAgo } from '@/lib/utils'
 import Image from 'next/image'
 
 export default async function HomePage() {
-  const supabase = createClient()
+  const supabase = createClient(cookies())
 
   // Fetch latest jobs
   const { data: jobs } = await supabase
